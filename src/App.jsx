@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import { TextField, Button, Typography, Box, Switch, FormControlLabel } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Switch,
+  FormControlLabel,
+} from "@mui/material";
 import { DisableContainer } from "./components/DisableContainer";
+import { DisableContainer2 } from "./components/DisableDiv";
 
 function App() {
   const [isDisabled, setIsDisabled] = useState(false);
@@ -47,12 +55,32 @@ function App() {
         sx={{ maxWidth: 400 }}
       />
 
+      {/* DisableContainer2 Example (using div) */}
+      <Typography variant="subtitle1" color="text.secondary">
+        Inside DisableContainer2 (div-based):
+      </Typography>
+      <DisableContainer2 disabled={isDisabled}>
+        <TextField
+          label="Input Inside DisableContainer2"
+          variant="outlined"
+          fullWidth
+          sx={{ maxWidth: 400 }}
+        />
+      </DisableContainer2>
+
       {/* DisableContainer Example */}
       <Typography variant="subtitle1" color="text.secondary">
-        Inside DisableContainer:
+        Inside DisableContainer (MUI Container-based):
       </Typography>
       <DisableContainer disabled={isDisabled}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, maxWidth: 400 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            maxWidth: 400,
+          }}
+        >
           <TextField label="Input 1" variant="outlined" fullWidth />
           <TextField label="Input 2" variant="outlined" fullWidth />
           <Button variant="contained" color="primary">
