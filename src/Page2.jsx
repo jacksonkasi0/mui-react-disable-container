@@ -12,8 +12,8 @@ import { DisableContainer2 } from "./components/DisableDiv";
 function Page2() {
   const [isDisabled, setIsDisabled] = useState(false);
   
-  // Generate 500+ TextFields
-  const inputCount = 500;
+  // Generate 100+ TextFields
+  const inputCount = 1000;
   const inputs = Array.from({ length: inputCount }, (_, index) => (
     <TextField
       key={index}
