@@ -1,12 +1,72 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# react-disable-container
 
-Currently, two official plugins are available:
+A React component to disable a container and all its child elements recursively.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+```bash
+npm install react-disable-container
+```
 
-## Expanding the ESLint configuration
+## Simple Example
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This example demonstrates the basic usage of `DisableContainer` with a toggle to enable/disable it.
+
+```jsx
+import React, { useState } from "react";
+import { TextField, Button, Typography, Switch, FormControlLabel } from "@mui/material";
+import { DisableContainer } from "./components/DisableContainer";
+
+function App() {
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  return (
+    <>
+      <Typography>React Disable Container Demo</Typography>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={isDisabled}
+            onChange={() => setIsDisabled(!isDisabled)}
+          />
+        }
+        label={isDisabled ? "Container Disabled" : "Container Enabled"}
+      />
+      <Typography>Outside Container (Always Enabled):</Typography>
+      <TextField label="Input Outside Container" />
+      <Typography>Inside DisableContainer:</Typography>
+      <DisableContainer disabled={isDisabled}>
+        <TextField label="Input 1" />
+        <TextField label="Input 2" />
+        <Button variant="contained">Click Me</Button>
+        <div>
+          <Typography>Nested Section</Typography>
+          <TextField label="Nested Input" />
+        </div>
+      </DisableContainer>
+    </>
+  );
+}
+
+export default App;
+```
+
+## What It Is
+
+`react-disable-container` is a lightweight React component that allows you to disable an entire container and all its child elements with a single `disabled` prop. It:
+
+- Recursively applies the `disabled` prop to all nested components that support it (e.g., `TextField`, `Button`).
+- Prevents interaction (clicks, keyboard navigation) with the container and its children when disabled.
+- Works with any React component, including custom ones, as long as they handle the `disabled` prop or rely on the container’s `pointerEvents: 'none'` fallback.
+
+In this example:
+- A `Switch` toggles the `disabled` state of the `DisableContainer`.
+- An input outside the container remains interactive regardless of the toggle.
+- Inputs, a button, and a nested section inside the `DisableContainer` become disabled/enabled based on the toggle.
+
+This is useful for forms, modals, or sections of a UI that need to be temporarily locked without manually disabling each child component.
+
+## Props
+- `disabled` (boolean): Disables the container and its children (default: `false`).
+
+Run this example locally by including it in a React project with MUI and the `react-disable-container` package installed.

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Box, Switch, FormControlLabel } from "@mui/material";
-import { DisableContainer } from "./components/DisableContainer"; // Adjust path as needed
+import { DisableContainer } from "./components/DisableContainer";
 
 function App() {
   const [isDisabled, setIsDisabled] = useState(false);
